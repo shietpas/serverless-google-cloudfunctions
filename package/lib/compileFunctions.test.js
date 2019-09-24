@@ -440,48 +440,6 @@ describe('CompileFunctions', () => {
       });
     });
 
-<<<<<<< HEAD
-    it('should set the vpcConnector based on the function configuration', () => {
-      googlePackage.serverless.service.functions = {
-        func1: {
-          handler: 'func1',
-          vpcConnector: 'projects/PROJECT_ID/locations/us-central1/connectors/my-connector',
-          events: [
-            { http: 'foo' },
-          ],
-        },
-      };
-
-      const compiledResources = [{
-        type: 'cloudfunctions.v1beta2.function',
-        name: 'my-service-dev-func1',
-        properties: {
-          location: 'us-central1',
-          runtime: 'nodejs8',
-          function: 'func1',
-          availableMemoryMb: 256,
-          vpcConnector: 'projects/PROJECT_ID/locations/us-central1/connectors/my-connector',
-          timeout: '60s',
-          sourceArchiveUrl: 'gs://sls-my-service-dev-12345678/some-path/artifact.zip',
-          httpsTrigger: {
-            url: 'foo',
-          },
-          labels: {},
-        },
-      }];
-
-      return googlePackage.compileFunctions().then(() => {
-        expect(consoleLogStub.calledOnce).toEqual(true);
-        expect(googlePackage.serverless.service.provider.compiledConfigurationTemplate.resources)
-          .toEqual(compiledResources);
-      });
-    });
-
-    it('should set the vpcConnector based on the provider configuration', () => {
-      googlePackage.serverless.service.functions = {
-        func1: {
-          handler: 'func1',
-=======
     it('should merge the environment variables on the provider configuration and function definition', () => {
       googlePackage.serverless.service.functions = {
         func1: {
@@ -490,25 +448,11 @@ describe('CompileFunctions', () => {
             TEST_VAR: 'test_var',
             TEST_VALUE: 'foobar',
           },
->>>>>>> e0806941e061a62f0dd771fc62e5bafd5fd450d5
           events: [
             { http: 'foo' },
           ],
         },
       };
-<<<<<<< HEAD
-      googlePackage.serverless.service.provider.vpcConnector = 'projects/PROJECT_ID/locations/us-central1/connectors/my-connector';
-
-      const compiledResources = [{
-        type: 'cloudfunctions.v1beta2.function',
-        name: 'my-service-dev-func1',
-        properties: {
-          location: 'us-central1',
-          runtime: 'nodejs8',
-          function: 'func1',
-          availableMemoryMb: 256,
-          vpcConnector: 'projects/PROJECT_ID/locations/us-central1/connectors/my-connector',
-=======
       googlePackage.serverless.service.provider.environment = {
         TEST_VAR: 'test',
         TEST_FOO: 'foo',
@@ -528,7 +472,6 @@ describe('CompileFunctions', () => {
             TEST_VALUE: 'foobar',
             TEST_FOO: 'foo',
           },
->>>>>>> e0806941e061a62f0dd771fc62e5bafd5fd450d5
           timeout: '60s',
           sourceArchiveUrl: 'gs://sls-my-service-dev-12345678/some-path/artifact.zip',
           httpsTrigger: {
@@ -542,14 +485,11 @@ describe('CompileFunctions', () => {
         expect(consoleLogStub.calledOnce).toEqual(true);
         expect(googlePackage.serverless.service.provider.compiledConfigurationTemplate.resources)
           .toEqual(compiledResources);
-<<<<<<< HEAD
-=======
         expect(googlePackage.serverless.service.provider.environment)
           .toEqual({
             TEST_VAR: 'test',
             TEST_FOO: 'foo',
           });
->>>>>>> e0806941e061a62f0dd771fc62e5bafd5fd450d5
       });
     });
 
